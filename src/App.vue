@@ -7,9 +7,9 @@
         <div class="row">
           <img src="./assets/dslogo.jpg" class="dslogo"  v-on:click="home()"/>
         </div>
-        <div class="row mynav" v-if="loggedIn" style="text-align:right;">
+        <div class="row mynav" v-if="isLoggedIn" style="text-align:right;">
           <ul>
-            <li><router-link to="/admin/manager">MANAGER</router-link></li>
+            <li><router-link to="/admin/manager">MANAGEMENT</router-link></li>
             <li><router-link to="/admin/contests">CONTESTS</router-link></li>
             <li><router-link to="/admin/metrics">METRICS</router-link></li>
             <li v-on:click="logout()"><router-link to="#">SIGN OUT</router-link></li>
@@ -25,44 +25,60 @@
 
 <script>
 
-import {storage} from './utils/storage'
-import {api} from './utils/api'
+import {storage} from './utils/storage';
+import {api} from './utils/api';
+import store from './store';
+
+import { mapGetters, mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'App',
   data () {
     return {
-      loggedIn: false
     }
   },
   mounted: function () {
+
     let token = storage.getValue('token');
     api.get(`/admvalid`).then(
       response => {
         if(response.data.value === "ok"){
-          this.loggedIn = true;
-          storage.storeValue('isGood', 'yes');
+          store.commit('login', true);
           this.$router.push('/admin');
         };
       })
-    .catch(error => {
-      this.loggedIn = false;
-      this.$router.push('/');
-      storage.storeValue('isGood', 'no');
-    });
+      .catch(error => {
+        store.commit('login', false);
+        this.$router.push('/');
+      }
+    );
   },
   methods: 
   {
     home () {
-      this.$router.push('/');
+     
+      if(this.isLoggedIn) {
+        this.$router.push('/admin');
+      } else {
+        this.$router.push('/');
+      }
     },
     logout () {
-      this.loggedIn = false;
+      store.commit('login', false);
       localStorage.clear('isGood');
       localStorage.clear('token');
       this.$router.push('/');
     }
-  }
+  },
+  computed: {
+    ...mapGetters([
+      'isLoggedIn',
+    ]),
+    ...mapMutations([
+      'login'
+    ]),
+    ...mapState(['loggedIn'])
+  },
 }
 
 </script>

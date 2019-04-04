@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Entry from '@/components/Entry'
-import Main from '@/components/secure/Main'
-import Metrics from '@/components/secure/Metrics'
-import Manager from '@/components/secure/Manager'
-import Contests from '@/components/secure/Contests'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Entry from '@/components/Entry';
+import Metrics from '@/components/secure/Metrics';
+import Manager from '@/components/secure/Manager';
+import Contests from '@/components/secure/Contests';
+import Admin from '@/components/secure/Admin';
 
 
 Vue.use(Router)
@@ -15,11 +15,6 @@ export default new Router({
       path: '/',
       name: 'Entry',
       component: Entry
-    },
-    {
-      path: '/admin',
-      name: 'Main',
-      component: Main
     },
     {
       path: '/admin/metrics',
@@ -35,6 +30,11 @@ export default new Router({
       path: '/admin/manager',
       name: 'Manager',
       component: Manager
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: Admin
     }
   ]
 })

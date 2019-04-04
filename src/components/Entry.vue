@@ -4,7 +4,7 @@
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 centered">
         <div id="loginBox">
           <div id="loginContainer">
-            <h1>ADMIN SIGN IN</h1>
+            <h1>ADMINISTRATION</h1>
             <br/>
             <div class="input-group input-group-lg" style="margin:0 15%;"> 
               <input type="text" class="form-control"  v-model="input.username" placeholder="EMAIL" aria-describedby="basic-addon1">
@@ -17,7 +17,7 @@
             </div>
             <br/>
             <div style="margin:0 15%;" class="centered">
-              <button type="button" class="btn btn-orange btn-lg btn-block centered" v-on:click="login()">LOGIN</button>
+              <button type="button" class="btn btn-orange btn-lg btn-block centered" v-on:click="signin()">LOGIN</button>
             </div>
             <br/>
             <router-view></router-view>
@@ -33,6 +33,9 @@
 import {api} from '../utils/api.js'
 import {storage} from '../utils/storage.js'
 
+import {store} from '../store';
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+
 export default {
   name: 'Entry',
   data() {
@@ -40,7 +43,7 @@ export default {
       input: {
           username: "",
           password: ""
-      }
+      },
     }
   },
   created: function () {
@@ -48,7 +51,8 @@ export default {
   },
   methods: 
   {
-    login() {
+    signin() {
+      const vm = this;
       let user = this.input.username;
       let pass = this.input.password;
       if(user != "" && pass != "") {
@@ -57,7 +61,8 @@ export default {
               this.userTemp = response.data;
               storage.storeValue('token', this.userTemp.token);
               storage.storeValue('isGood', 'yes');
-              this.$router.push('/admin');
+              this.$store.commit('login', true);
+              this.$router.push('/admin');             
             })
           .catch(error => {
             console.log(error)
@@ -67,6 +72,11 @@ export default {
         alert(`A username and password must be present`);
       }
     }
+  },
+  computed: {
+    ...mapActions([
+      'usersignin'
+    ])
   }
 }
 </script>

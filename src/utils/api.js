@@ -7,7 +7,7 @@ export const api = {
   getRaw(path) { return axios.get(this._genUrl(path));},
   getRawSpec(path) { return axios.get(path);},
   get(path) { return axios.get(this._genUrl(path), this._genOpts()); },
-  rawPost(path, body) { return axios.post(this._genUrl(path), body);},
+  async rawPost(path, body) { return await axios.post(this._genUrl(path), body);},
   rawPostSpec(path, body) { return axios.post(path, body);},
   post(path, body) { return axios.post(this._genUrl(path), body, this._genOpts());},
   put(path, body) { 

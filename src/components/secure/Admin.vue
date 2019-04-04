@@ -2,7 +2,7 @@
   <div style="margin-top:96px;">
     <div class="row">
       <div class="col-xs-12">
-        <h3>Contests</h3>
+        <h3>Administration</h3>
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
 <script>
 
 export default {
-  name: 'Contests'
+  name: 'Admin'
 }
 
 </script>

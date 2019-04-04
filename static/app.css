@@ -12,12 +12,12 @@ html, body {
   background-color: #efefef;
 }
 
-.dslogo { width:150px; margin-top:-60px; padding-bottom:8px; border-bottom:solid 3px #000; margin-left:16px;}
+.dslogo { width:150px; margin-top:-60px; background-color:#fff;  padding-bottom:8px; border-bottom:solid 3px #000; margin-left:16px;}
 .mynav { margin-left:2px; }
 #loginBox {
   width:100%;
   margin-top:108px;
-  border-top:solid 2px #000;
+  border-top:solid 1px #000;
   border-bottom:solid 1px #aaa;
 }
 

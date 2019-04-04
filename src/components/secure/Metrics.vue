@@ -1,6 +1,10 @@
 <template>
-  <div style="margin-top:128px;">
-    <p>metrics</p>
+  <div style="margin-top:96px;">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Metrics</h3>
+      </div>
+    </div>
   </div>
 </template>
 
